@@ -5,8 +5,14 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import frc.robot.commands.DriveWithJoystick;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 
@@ -22,8 +28,31 @@ public class RobotContainer {
 
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
+
+  private SpeedController leftBottom, leftTop, rightBottom, rightTop;
+  private SpeedControllerGroup left, right;
+  private DifferentialDrive drive;
+  private DriveTrain driveTrain;
+  private Joystick joystick;
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
+
+    leftBottom = new SteelTalonsController(Constants.DRIVETRAIN_LEFT_BOTTOM, false, 1);
+    leftTop = new SteelTalonsController(Constants.DRIVETRAIN_LEFT_TOP, false, 1);
+    rightBottom = new SteelTalonsController(Constants.DRIVETRAIN_RIGHT_BOTTOM, false, 1);
+    rightTop = new SteelTalonsController(Constants.DRIVETRAIN_RIGHT_TOP, false, 1);
+
+    left = new SpeedControllerGroup(leftBottom, leftTop);
+    right = new SpeedControllerGroup(rightBottom, rightTop);
+
+    drive = new DifferentialDrive(left, right);
+
+    driveTrain = new DriveTrain(left, right, drive);
+    driveTrain.setDefaultCommand(new DriveWithJoystick());
+
+
+
     // Configure the button bindings
     configureButtonBindings();
   }
@@ -34,7 +63,10 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private void configureButtonBindings() {}
+  private void configureButtonBindings() 
+  {
+    joystick = new Joystick(0);
+  }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
@@ -44,5 +76,15 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
     return m_autoCommand;
+  }
+
+  public DriveTrain getDriveTrain()
+  {
+    return driveTrain;
+  }
+
+  public Joystick getJoystick()
+  {
+    return joystick;
   }
 }
