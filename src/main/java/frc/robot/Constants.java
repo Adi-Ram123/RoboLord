@@ -18,6 +18,9 @@ public final class Constants {
     public final static int DRIVETRAIN_LEFT_TOP = 1;
     public final static int DRIVETRAIN_RIGHT_BOTTOM = 2;
     public final static int DRIVETRAIN_RIGHT_TOP = 3;
+    public final static int INTAKE_SPEED_CONTROLLER = 4;
+    public final static int INTAKE_BUTTON = 5;
+    public final static double INTAKE_SPEED = 0.5;
 
 
 }

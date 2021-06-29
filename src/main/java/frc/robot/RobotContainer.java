@@ -12,9 +12,13 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.robot.commands.DriveWithJoystick;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.MoveIntake;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.Intake;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.Button;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -34,6 +38,9 @@ public class RobotContainer {
   private DifferentialDrive drive;
   private DriveTrain driveTrain;
   private Joystick joystick;
+  private SpeedController intakeSpeed;
+  private Intake intake;
+  private Button intakeButton;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -51,6 +58,9 @@ public class RobotContainer {
     driveTrain = new DriveTrain(left, right, drive);
     driveTrain.setDefaultCommand(new DriveWithJoystick());
 
+    intakeSpeed = new SteelTalonsController(Constants.INTAKE_SPEED_CONTROLLER, false, 1);
+    intake = new Intake(intakeSpeed);
+
 
 
     // Configure the button bindings
@@ -66,6 +76,9 @@ public class RobotContainer {
   private void configureButtonBindings() 
   {
     joystick = new Joystick(0);
+    intakeButton = new JoystickButton(joystick, Constants.INTAKE_BUTTON);
+
+    intakeButton.whileHeld(new MoveIntake(Constants.INTAKE_SPEED));
   }
 
   /**
@@ -86,5 +99,10 @@ public class RobotContainer {
   public Joystick getJoystick()
   {
     return joystick;
+  }
+
+  public Intake getIntake()
+  {
+    return intake;
   }
 }
