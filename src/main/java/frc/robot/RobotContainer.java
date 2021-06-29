@@ -13,9 +13,12 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.robot.commands.DriveWithJoystick;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.MoveIntake;
+import frc.robot.commands.MoveTransport;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Pulley;
+import frc.robot.subsystems.Transport;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -38,9 +41,18 @@ public class RobotContainer {
   private DifferentialDrive drive;
   private DriveTrain driveTrain;
   private Joystick joystick;
+
   private SpeedController intakeSpeed;
   private Intake intake;
   private Button intakeButton;
+  
+  private SpeedController transportControl;
+  private Transport transport;
+  private Button transportButton;
+  
+  private SpeedController pulleyController;
+  private Pulley pulley;
+  private Button pulleyButton;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -61,6 +73,12 @@ public class RobotContainer {
     intakeSpeed = new SteelTalonsController(Constants.INTAKE_SPEED_CONTROLLER, false, 1);
     intake = new Intake(intakeSpeed);
 
+    transportControl = new SteelTalonsController(Constants.TRANSPORT_CONTROLLER, false, 1);
+    transport = new Transport(transportControl);
+
+    pulleyController = new SteelTalonsController(Constants.PULLEY_CONTROLLER, false, 1);
+    pulley = new Pulley(pulleyController);
+
 
 
     // Configure the button bindings
@@ -76,9 +94,15 @@ public class RobotContainer {
   private void configureButtonBindings() 
   {
     joystick = new Joystick(0);
-    intakeButton = new JoystickButton(joystick, Constants.INTAKE_BUTTON);
 
+    intakeButton = new JoystickButton(joystick, Constants.INTAKE_BUTTON);
     intakeButton.whileHeld(new MoveIntake(Constants.INTAKE_SPEED));
+
+    transportButton = new JoystickButton(joystick, Constants.TRANSPORT_BUTTON);
+    transportButton.whileHeld(new MoveTransport(Constants.TRANSPORT_SPEED));
+
+    pulleyButton = new JoystickButton(joystick, Constants.PULLEY_BUTTON);
+  
   }
 
   /**
@@ -104,5 +128,15 @@ public class RobotContainer {
   public Intake getIntake()
   {
     return intake;
+  }
+
+  public Transport getTransport()
+  {
+    return transport;
+  }
+
+  public Pulley getPulley()
+  {
+    return pulley;
   }
 }
