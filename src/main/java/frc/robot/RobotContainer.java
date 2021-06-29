@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.robot.commands.DriveWithJoystick;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.MoveIntake;
+import frc.robot.commands.MovePulley;
 import frc.robot.commands.MoveTransport;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.ExampleSubsystem;
@@ -102,6 +103,7 @@ public class RobotContainer {
     transportButton.whileHeld(new MoveTransport(Constants.TRANSPORT_SPEED));
 
     pulleyButton = new JoystickButton(joystick, Constants.PULLEY_BUTTON);
+    pulleyButton.whileHeld(new MovePulley(Constants.PULLEY_SPEED));
   
   }
 
