@@ -16,6 +16,7 @@ import frc.robot.commands.MoveIntake;
 import frc.robot.commands.MovePulley;
 import frc.robot.commands.MoveShooter;
 import frc.robot.commands.MoveTransport;
+import frc.robot.commands.ShootAuto;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Intake;
@@ -60,6 +61,8 @@ public class RobotContainer {
   private SpeedController leftShooter, rightShooter;
   private Shooter shooter;
   private Button shooterButton;
+
+  private Button shootAutoButton;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -117,6 +120,9 @@ public class RobotContainer {
 
     shooterButton = new JoystickButton(joystick, Constants.SHOOTER_BUTTON);
     shooterButton.whileHeld(new MoveShooter(Constants.SHOOTER_SPEED));
+
+    shootAutoButton = new JoystickButton(joystick, Constants.SHOOT_AUTO_BUTTON);
+    shootAutoButton.whileHeld(new ShootAuto(Constants.TRANSPORT_SPEED, Constants.PULLEY_SPEED, Constants.SHOOTER_SPEED));
   
   }
 

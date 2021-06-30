@@ -20,21 +20,23 @@ public final class Constants {
     public final static int DRIVETRAIN_RIGHT_TOP = 3;
 
     public final static int INTAKE_SPEED_CONTROLLER = 4;
-    public final static int INTAKE_BUTTON = 5;
+    public final static int INTAKE_BUTTON = 1;
     public final static double INTAKE_SPEED = 0.5;
     
-    public final static int TRANSPORT_CONTROLLER = 6;
-    public final static int TRANSPORT_BUTTON = 7;
+    public final static int TRANSPORT_CONTROLLER = 5;
+    public final static int TRANSPORT_BUTTON = 2;
     public final static double TRANSPORT_SPEED = 0.5;
 
-    public final static int PULLEY_CONTROLLER = 8;
-    public final static int PULLEY_BUTTON = 9;
+    public final static int PULLEY_CONTROLLER = 6;
+    public final static int PULLEY_BUTTON = 3;
     public final static double PULLEY_SPEED = 0.5;
 
-    public final static int LEFT_SHOOTER = 10;
-    public final static int RIGHT_SHOOTER = 11;
-    public final static int SHOOTER_BUTTON = 12;
+    public final static int LEFT_SHOOTER = 7;
+    public final static int RIGHT_SHOOTER = 8;
+    public final static int SHOOTER_BUTTON = 4;
     public final static double SHOOTER_SPEED = 0.5;
+
+    public final static int SHOOT_AUTO_BUTTON = 5;
 
 
 }
