@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.SpeedController;
@@ -12,12 +14,14 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.robot.commands.DriveWithJoystick;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.MoveElevator;
 import frc.robot.commands.MoveIntake;
 import frc.robot.commands.MovePulley;
 import frc.robot.commands.MoveShooter;
 import frc.robot.commands.MoveTransport;
 import frc.robot.commands.ShootAuto;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Pulley;
@@ -64,6 +68,14 @@ public class RobotContainer {
 
   private Button shootAutoButton;
 
+  private SpeedController leftElevatorController, rightElevatorController;
+  private Encoder leftElevatorEncoder, rightElevatorEncoder;
+  private DigitalInput elevatorSwitch;
+  private Elevator elevator;
+  private Button elevatorDownButton;
+  private Button elevatorUpButton;
+  
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
 
@@ -92,6 +104,13 @@ public class RobotContainer {
     leftShooter = new SteelTalonsController(Constants.LEFT_SHOOTER, false, 1);
     rightShooter = new SteelTalonsController(Constants.RIGHT_SHOOTER, false, 1);
     shooter = new Shooter(leftShooter, rightShooter);
+
+    leftElevatorController = new SteelTalonsController(Constants.LEFT_ELEVATOR_CONTROLLER, false, 1);
+    rightElevatorController = new SteelTalonsController(Constants.RIGHT_ELEVATOR_CONTROLLER, false, 1);
+    leftElevatorEncoder = new Encoder(Constants.LEFT_ENCODER1, Constants.LEFT_ENCODER2);
+    rightElevatorEncoder = new Encoder(Constants.RIGHT_ENCODER1, Constants.RIGHT_ENCODER2);
+    elevatorSwitch = new DigitalInput(Constants.SWITCH);
+    elevator = new Elevator(leftElevatorController, rightElevatorController, leftElevatorEncoder, rightElevatorEncoder, elevatorSwitch);
 
 
 
@@ -123,6 +142,11 @@ public class RobotContainer {
 
     shootAutoButton = new JoystickButton(joystick, Constants.SHOOT_AUTO_BUTTON);
     shootAutoButton.whileHeld(new ShootAuto(Constants.TRANSPORT_SPEED, Constants.PULLEY_SPEED, Constants.SHOOTER_SPEED));
+
+    elevatorUpButton = new JoystickButton(joystick, Constants.ELEVATOR_UP_BUTTON);
+    elevatorDownButton = new JoystickButton(joystick, Constants.ELEVATOR_DOWN_BUTTON);
+    elevatorUpButton.whileHeld(new MoveElevator(Constants.ELEVATOR_SPEED));
+    elevatorDownButton.whileHeld(new MoveElevator(-Constants.ELEVATOR_SPEED));
   
   }
 
@@ -164,5 +188,10 @@ public class RobotContainer {
   public Shooter getShooter()
   {
     return shooter;
+  }
+
+  public Elevator getElevator()
+  {
+    return elevator;
   }
 }

@@ -38,5 +38,17 @@ public final class Constants {
 
     public final static int SHOOT_AUTO_BUTTON = 5;
 
+    public final static double ENCODER_LIMIT = 350;
+    public final static int LEFT_ELEVATOR_CONTROLLER = 9;
+    public final static int RIGHT_ELEVATOR_CONTROLLER = 10;
+    public final static int LEFT_ENCODER1 = 11;
+    public final static int LEFT_ENCODER2 = 12;
+    public final static int RIGHT_ENCODER1 = 13;
+    public final static int RIGHT_ENCODER2 = 14;
+    public final static int SWITCH = 15;
+    public final static int ELEVATOR_UP_BUTTON = 6;
+    public final static int ELEVATOR_DOWN_BUTTON = 7;
+    public final static double ELEVATOR_SPEED = 0.5;
+
 
 }
