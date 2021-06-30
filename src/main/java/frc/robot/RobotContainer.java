@@ -14,11 +14,13 @@ import frc.robot.commands.DriveWithJoystick;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.MoveIntake;
 import frc.robot.commands.MovePulley;
+import frc.robot.commands.MoveShooter;
 import frc.robot.commands.MoveTransport;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Pulley;
+import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Transport;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.Button;
@@ -55,6 +57,10 @@ public class RobotContainer {
   private Pulley pulley;
   private Button pulleyButton;
 
+  private SpeedController leftShooter, rightShooter;
+  private Shooter shooter;
+  private Button shooterButton;
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
 
@@ -80,6 +86,10 @@ public class RobotContainer {
     pulleyController = new SteelTalonsController(Constants.PULLEY_CONTROLLER, false, 1);
     pulley = new Pulley(pulleyController);
 
+    leftShooter = new SteelTalonsController(Constants.LEFT_SHOOTER, false, 1);
+    rightShooter = new SteelTalonsController(Constants.RIGHT_SHOOTER, false, 1);
+    shooter = new Shooter(leftShooter, rightShooter);
+
 
 
     // Configure the button bindings
@@ -104,6 +114,9 @@ public class RobotContainer {
 
     pulleyButton = new JoystickButton(joystick, Constants.PULLEY_BUTTON);
     pulleyButton.whileHeld(new MovePulley(Constants.PULLEY_SPEED));
+
+    shooterButton = new JoystickButton(joystick, Constants.SHOOTER_BUTTON);
+    shooterButton.whileHeld(new MoveShooter(Constants.SHOOTER_SPEED));
   
   }
 
@@ -140,5 +153,10 @@ public class RobotContainer {
   public Pulley getPulley()
   {
     return pulley;
+  }
+
+  public Shooter getShooter()
+  {
+    return shooter;
   }
 }

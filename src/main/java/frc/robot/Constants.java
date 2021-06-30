@@ -31,5 +31,10 @@ public final class Constants {
     public final static int PULLEY_BUTTON = 9;
     public final static double PULLEY_SPEED = 0.5;
 
+    public final static int LEFT_SHOOTER = 10;
+    public final static int RIGHT_SHOOTER = 11;
+    public final static int SHOOTER_BUTTON = 12;
+    public final static double SHOOTER_SPEED = 0.5;
+
 
 }
