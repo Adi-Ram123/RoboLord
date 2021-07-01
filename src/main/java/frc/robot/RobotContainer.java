@@ -141,7 +141,7 @@ public class RobotContainer {
     shooterButton.whileHeld(new MoveShooter(Constants.SHOOTER_SPEED));
 
     shootAutoButton = new JoystickButton(joystick, Constants.SHOOT_AUTO_BUTTON);
-    shootAutoButton.whileHeld(new ShootAuto(Constants.TRANSPORT_SPEED, Constants.PULLEY_SPEED, Constants.SHOOTER_SPEED));
+    shootAutoButton.whileHeld(new ShootAuto(transport, pulley, shooter));
 
     elevatorUpButton = new JoystickButton(joystick, Constants.ELEVATOR_UP_BUTTON);
     elevatorDownButton = new JoystickButton(joystick, Constants.ELEVATOR_DOWN_BUTTON);
